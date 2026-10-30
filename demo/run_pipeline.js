@@ -1,0 +1,15 @@
+const fs = require('fs');
+const path = require('path');
+const { parseEmail, judge, dedupe } = require('../n8n/code/pipeline.js');
+const root = path.join(__dirname, '..');
+const emails = JSON.parse(fs.readFileSync(path.join(root, 'samples/alerts.json'), 'utf8'));
+const cfg = JSON.parse(fs.readFileSync(path.join(root, 'templates/config.example.json'), 'utf8'));
+const parsed = emails.flatMap(parseEmail);
+const fresh = dedupe(parsed, []);
+const today = '2026-10-30';
+const rows = fresh.map(j => ({ ...j, first_seen: today, filter_result: judge(j, cfg), decision: '', fit_score: '', cv_link: '', status: 'new', applied_on: '', notes: '' }));
+const cols = ['job_key','source','title','company','location','years_min','years_max','link','first_seen','filter_result','decision','fit_score','cv_link','status','applied_on','notes'];
+const esc = v => { const s = v == null ? '' : String(v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+fs.writeFileSync(path.join(root, 'demo/tracker.csv'), [cols.join(',')].concat(rows.map(r => cols.map(c => esc(r[c])).join(','))).join('\n') + '\n');
+console.log('emails', emails.length, '| jobs parsed', parsed.length, '| after dedupe', fresh.length, '| shortlisted', rows.filter(r => r.filter_result === 'shortlist').length);
+rows.forEach(r => console.log(r.filter_result.padEnd(42), '|', r.source, '|', r.title, '|', r.company, '|', r.location, '|', r.years_min, r.years_max));

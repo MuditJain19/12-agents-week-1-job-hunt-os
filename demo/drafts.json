@@ -1,0 +1,43 @@
+{
+  "tiffinly": {
+    "company": "Tiffinly", "role": "Growth Analytics Manager", "fit_score": 82,
+    "reasons": ["About six years in growth analytics at a consumer app (F03)", "60+ A/B tests across onboarding, pricing and referral flows, the exact areas in the job (F09)", "Ran a referral programme with fraud rules, a listed nice-to-have (F08)"],
+    "gaps": ["Python is listed as a nice-to-have and is not a claimed skill (G02)", "Has led a team of 5; the role is 3 to 4, so no gap"],
+    "lines": [
+      {"part": "summary", "text": "Growth analytics manager with about six years at a consumer gaming app, running experiments across onboarding, pricing and referrals.", "ids": ["F03", "F04", "F09"]},
+      {"part": "bullet", "text": "Designed and ran 60+ A/B tests across onboarding, pricing and referral flows.", "ids": ["F09"]},
+      {"part": "bullet", "text": "Scaled Dicebox Carrom from launch to Rs 4L in daily revenue in eight months.", "ids": ["F05"]},
+      {"part": "bullet", "text": "Led a team of 5 analysts on Dicebox Carrom, reporting to the Head of Growth.", "ids": ["F06"]},
+      {"part": "bullet", "text": "Built an LLM-based KPI explainer that cut weekly analysis time for the growth team.", "ids": ["F07"]},
+      {"part": "bullet", "text": "Owned the referral programme from launch, including fraud rules on referral velocity.", "ids": ["F08"]},
+      {"part": "bullet", "text": "Built the company's first cohort retention dashboard.", "ids": ["F10"]},
+      {"part": "skills", "text": "SQL, BigQuery, A/B testing, cohort and funnel analysis, Looker, n8n, Claude.", "ids": ["F12"]}
+    ]
+  },
+  "kirana": {
+    "company": "Kirana Cloud", "role": "Analytics Manager", "fit_score": 58,
+    "reasons": ["Explaining why KPIs move is a direct match for the LLM KPI explainer (F07)", "Has managed a team of analysts (F06)", "Strong SQL and Looker (F12)"],
+    "gaps": ["The job asks for P&L ownership of the credit product; the persona did not own a P&L (G01)", "No fintech or B2B background", "Python preferred; not a claimed skill (G02)"],
+    "lines": [
+      {"part": "summary", "text": "Analytics manager who turns KPI movements into plain-English explanations and leads a team of analysts.", "ids": ["F04", "F06", "F07"]},
+      {"part": "bullet", "text": "Built an LLM-based explainer that posts a plain-English reason whenever a daily KPI moves outside its expected range.", "ids": ["F07"]},
+      {"part": "bullet", "text": "Owned revenue and unit economics for Dicebox Carrom, scaling it to Rs 4L in daily revenue in eight months.", "ids": ["F05"]},
+      {"part": "bullet", "text": "Led a team of 5 analysts, reporting to the Head of Growth.", "ids": ["F06"]},
+      {"part": "bullet", "text": "Built the company's first cohort retention dashboard.", "ids": ["F10"]},
+      {"part": "skills", "text": "Advanced SQL, BigQuery, Looker dashboards, A/B testing, cohort and funnel analysis.", "ids": ["F12"]}
+    ]
+  },
+  "souk": {
+    "company": "Souk Express", "role": "Manager, Growth & Retention", "fit_score": 64,
+    "reasons": ["Referral programme and 60+ experiments map to the retention and offers work (F08, F09)", "Cohort retention dashboard (F10)", "About six years of experience meets 5+ (F03)"],
+    "gaps": ["No CRM or lifecycle-campaign experience in the truth file", "Team in the job is 6 across CRM and analytics; persona led 5 analysts", "Based in Bengaluru; needs to relocate to Dubai"],
+    "lines": [
+      {"part": "summary", "text": "Growth analytics manager with about six years at a consumer app, focused on retention, referrals and experimentation.", "ids": ["F03", "F04", "F08", "F09"]},
+      {"part": "bullet", "text": "Led a team of 5 across growth analytics and CRM, reporting to the Head of Growth.", "ids": ["F06"]},
+      {"part": "bullet", "text": "Owned the referral programme from launch, including fraud rules on referral velocity.", "ids": ["F08"]},
+      {"part": "bullet", "text": "Designed and ran 60+ A/B tests on onboarding, pricing and referral offers, lifting repeat usage by 15%.", "ids": ["F09"]},
+      {"part": "bullet", "text": "Built the company's first cohort retention dashboard.", "ids": ["F10"]},
+      {"part": "skills", "text": "SQL, BigQuery, A/B testing, cohort and funnel analysis, Looker.", "ids": ["F12"]}
+    ]
+  }
+}

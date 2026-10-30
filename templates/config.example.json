@@ -1,0 +1,9 @@
+{
+  "_note": "Search preferences used by the free code filter in n8n. Edit to match your target roles.",
+  "years_min": 4,
+  "years_max": 7,
+  "title_level_regex": "\\b(manager|lead)\\b",
+  "title_function_regex": "\\b(growth|analytics|insights|experimentation|retention|monetis|monetiz|lifecycle|revenue|business intelligence|strategy|data)",
+  "title_exclude_regex": "\\b(engineer|engineering|software|developer|sales|account manager|account executive|talent|recruit|hr|finance manager|accounting|legal|director|vp|vice president|head of|intern)\\b",
+  "location_ok_regex": "\\b(india|bengaluru|bangalore|gurugram|gurgaon|delhi|noida|mumbai|pune|hyderabad|chennai|dubai|abu dhabi|united arab emirates|uae|remote)\\b"
+}

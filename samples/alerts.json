@@ -1,0 +1,23 @@
+[
+  {
+    "id": "sample-linkedin-1",
+    "from": "LinkedIn Job Alerts <jobalerts-noreply@linkedin.com>",
+    "subject": "SAMPLE: 3 new jobs for 'growth analytics manager'",
+    "date": "2026-10-30T07:02:00+05:30",
+    "text": "SAMPLE ALERT (fictional companies, fake job IDs)\nYour job alert for growth analytics manager in India and UAE\n3 new jobs match your preferences.\n\nGrowth Analytics Manager\nTiffinly\nBengaluru, Karnataka, India\nView job: https://www.linkedin.com/comm/jobs/view/9000000001/?trackingId=sample\n\nSenior Data Engineer\nPayNest\nPune, Maharashtra, India\nView job: https://www.linkedin.com/comm/jobs/view/9000000002/?trackingId=sample\n\nManager, Growth & Retention\nSouk Express\nDubai, United Arab Emirates\nView job: https://www.linkedin.com/comm/jobs/view/9000000003/?trackingId=sample\n"
+  },
+  {
+    "id": "sample-naukri-1",
+    "from": "Naukri Job Alerts <jobalerts@naukri.com>",
+    "subject": "SAMPLE: 4 new jobs matching your profile",
+    "date": "2026-10-30T08:15:00+05:30",
+    "text": "SAMPLE ALERT (fictional companies, fake job IDs)\nJobs recommended for you\n\nAnalytics Manager\nKirana Cloud\n4-7 Yrs | Gurugram | Not disclosed\nhttps://www.naukri.com/job-listings-analytics-manager-kirana-cloud-gurugram-4-to-7-years-301026900001\n\nArea Sales Manager\nBrightBazaar Retail\n3-6 Yrs | Jaipur | 6-9 Lacs PA\nhttps://www.naukri.com/job-listings-area-sales-manager-brightbazaar-retail-jaipur-3-to-6-years-301026900002\n\nRevenue Manager\nSaffron Stays Hotels\n5-8 Yrs | Udaipur | Not disclosed\nhttps://www.naukri.com/job-listings-revenue-manager-saffron-stays-hotels-udaipur-5-to-8-years-301026900003\n\nHead of Growth\nQuickCart\n10-15 Yrs | Mumbai | Not disclosed\nhttps://www.naukri.com/job-listings-head-of-growth-quickcart-mumbai-10-to-15-years-301026900004\n"
+  },
+  {
+    "id": "sample-iimjobs-1",
+    "from": "iimjobs <alerts@iimjobs.com>",
+    "subject": "SAMPLE: New jobs for you",
+    "date": "2026-10-30T09:40:00+05:30",
+    "text": "SAMPLE ALERT (fictional companies, fake job IDs)\nNew jobs matching your alert\n\nManager - Growth Strategy - PayNest (4-6 yrs)\nGurgaon/Gurugram\nhttps://www.iimjobs.com/j/manager-growth-strategy-paynest-4-6-yrs-9000001\n\nLead - Product Analytics - Ludoverse Games (5-9 yrs)\nBangalore\nhttps://www.iimjobs.com/j/lead-product-analytics-ludoverse-games-5-9-yrs-9000002\n\nAssociate Director - Analytics - Streamly (9-13 yrs)\nMumbai\nhttps://www.iimjobs.com/j/associate-director-analytics-streamly-9-13-yrs-9000003\n\nGrowth Analytics Manager - Tiffinly (4-7 yrs)\nBangalore\nhttps://www.iimjobs.com/j/growth-analytics-manager-tiffinly-4-7-yrs-9000004\n\nManager - Monetisation - Streamly (4-8 yrs)\nRemote\nhttps://www.iimjobs.com/j/manager-monetisation-streamly-4-8-yrs-9000005\n"
+  }
+]

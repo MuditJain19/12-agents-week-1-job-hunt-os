@@ -1,0 +1,158 @@
+{
+  "_note": "Independent check pass. It saw only the truth file and the draft lines, not the job description. In this demo the drafts and the check were both run by Claude in one session; the skill tells Claude to use a separate subagent for the check when one is available.",
+  "tiffinly": [
+    {
+      "i": 0,
+      "verdict": "supported"
+    },
+    {
+      "i": 1,
+      "verdict": "supported"
+    },
+    {
+      "i": 2,
+      "verdict": "supported"
+    },
+    {
+      "i": 3,
+      "verdict": "supported"
+    },
+    {
+      "i": 4,
+      "verdict": "unsupported",
+      "problem": "'cut weekly analysis time' is an outcome F07 does not state."
+    },
+    {
+      "i": 5,
+      "verdict": "supported"
+    },
+    {
+      "i": 6,
+      "verdict": "supported"
+    },
+    {
+      "i": 7,
+      "verdict": "supported"
+    }
+  ],
+  "kirana": [
+    {
+      "i": 0,
+      "verdict": "supported"
+    },
+    {
+      "i": 1,
+      "verdict": "supported"
+    },
+    {
+      "i": 2,
+      "verdict": "unsupported",
+      "problem": "'Owned revenue and unit economics' implies P&L ownership, which G01 forbids; F05 only says the game was scaled to Rs 4L daily revenue."
+    },
+    {
+      "i": 3,
+      "verdict": "supported"
+    },
+    {
+      "i": 4,
+      "verdict": "supported"
+    },
+    {
+      "i": 5,
+      "verdict": "supported"
+    }
+  ],
+  "souk": [
+    {
+      "i": 0,
+      "verdict": "unsupported",
+      "problem": "'focused on retention' is not in the cited facts (F03, F04, F08, F09); retention work is F10, which is not cited."
+    },
+    {
+      "i": 1,
+      "verdict": "unsupported",
+      "problem": "'across growth analytics and CRM': F06 says a team of 5 analysts; CRM is not in the truth file."
+    },
+    {
+      "i": 2,
+      "verdict": "supported"
+    },
+    {
+      "i": 3,
+      "verdict": "unsupported",
+      "problem": "'lifting repeat usage by 15%': no such outcome or number in F09 (also failed the number check)."
+    },
+    {
+      "i": 4,
+      "verdict": "supported"
+    },
+    {
+      "i": 5,
+      "verdict": "supported"
+    }
+  ],
+  "replacements": {
+    "souk": [
+      {
+        "part": "summary",
+        "text": "Growth analytics manager with about six years at a games company, running referral programmes, experiments and cohort retention analysis.",
+        "ids": [
+          "F03",
+          "F04",
+          "F08",
+          "F09",
+          "F10"
+        ],
+        "verdict": "supported",
+        "note": "Rewritten summary citing F10, re-checked as a new line."
+      },
+      {
+        "part": "bullet",
+        "text": "Led a team of 5 analysts on Dicebox Carrom, reporting to the Head of Growth.",
+        "ids": [
+          "F06"
+        ],
+        "verdict": "supported",
+        "note": "Refill from F06 without the CRM claim, re-checked."
+      },
+      {
+        "part": "bullet",
+        "text": "Scaled Dicebox Carrom from launch to Rs 4L in daily revenue in eight months.",
+        "ids": [
+          "F05"
+        ],
+        "verdict": "supported",
+        "note": "Refill, re-checked."
+      },
+      {
+        "part": "bullet",
+        "text": "Designed and ran 60+ A/B tests on onboarding, pricing and referral offers.",
+        "ids": [
+          "F09"
+        ],
+        "verdict": "supported",
+        "note": "Refill from F09 without the invented 15% lift, re-checked."
+      }
+    ],
+    "kirana": [
+      {
+        "part": "bullet",
+        "text": "Scaled Dicebox Carrom from launch to Rs 4L in daily revenue in eight months.",
+        "ids": [
+          "F05"
+        ],
+        "verdict": "supported",
+        "note": "Refill from F05 without the ownership claim, re-checked."
+      },
+      {
+        "part": "bullet",
+        "text": "Designed and ran 60+ A/B tests across onboarding, pricing and referral flows.",
+        "ids": [
+          "F09"
+        ],
+        "verdict": "supported",
+        "note": "Refill, re-checked."
+      }
+    ]
+  }
+}

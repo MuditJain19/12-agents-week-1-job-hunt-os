@@ -1,0 +1,9 @@
+# Your personal files: never commit these when you fork
+/truth_file.csv
+/profile.json
+/config.json
+/cvs/
+*.env
+.DS_Store
+__pycache__/
+node_modules/

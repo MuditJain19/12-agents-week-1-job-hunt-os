@@ -1,0 +1,130 @@
+{
+  "tiffinly": [
+    {
+      "i": 0,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 3,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 4,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 5,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 6,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 7,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    }
+  ],
+  "kirana": [
+    {
+      "i": 0,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 3,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 4,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 5,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    }
+  ],
+  "souk": [
+    {
+      "i": 0,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 1,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 2,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 3,
+      "ok": false,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": [
+        "15"
+      ]
+    },
+    {
+      "i": 4,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    },
+    {
+      "i": 5,
+      "ok": true,
+      "bad_ids": [],
+      "numbers_not_in_cited_facts": []
+    }
+  ]
+}

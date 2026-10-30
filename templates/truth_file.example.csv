@@ -1,0 +1,19 @@
+fact_id,section,kind,fact,source,confirmed
+F01,education,claim,"B.Tech Computer Science, Northfield Institute of Technology (fictional), 2020.",Example persona,true
+F02,location,claim,"Based in Bengaluru, India.",Example persona,true
+F03,dicebox,claim,"Worked at Dicebox Games (fictional), Bengaluru, Jul 2020 to Aug 2026, progressing from Analyst to Growth Analytics Manager (about six years).",Example persona,true
+F04,dicebox_manager,claim,"Title: Growth Analytics Manager, Jan 2025 to Aug 2026.",Example persona,true
+F05,dicebox_manager,claim,"Scaled Dicebox Carrom from launch to Rs 4L in daily revenue in eight months.",Example persona,true
+F06,dicebox_manager,claim,"Led a team of 5 analysts on Dicebox Carrom, reporting to the Head of Growth.",Example persona,true
+F07,dicebox_manager,claim,"Built an LLM-based explainer that posts a plain-English reason whenever a daily KPI moves outside its expected range.",Example persona,true
+F08,dicebox_manager,claim,"Owned the referral programme from launch, including fraud rules on referral velocity.",Example persona,true
+F09,dicebox_analyst,claim,"Designed and ran 60+ A/B tests across onboarding, pricing and referral flows.",Example persona,true
+F10,dicebox_analyst,claim,"Title: Senior Analyst, Jul 2022 to Dec 2024. Built the company's first cohort retention dashboard.",Example persona,true
+F11,dicebox_analyst,claim,"Title: Analyst, Jul 2020 to Jun 2022. Learned SQL as the team's go-to person for numbers.",Example persona,true
+F12,skills,claim,"Skills: SQL, BigQuery, A/B testing (60+ tests), cohort and funnel analysis, Looker dashboards, n8n, Claude.",Example persona,true
+G01,guard,guard,"Did NOT own the P&L; the Head of Growth did. Never claim or imply P&L ownership.",Example persona,true
+G02,guard,guard,"Python is not a claimed skill. Never claim Python proficiency.",Example persona,true
+G03,guard,guard,"No figure exists for referral fraud reduction. Never invent a percentage or amount.",Example persona,true
+G04,guard,guard,"Team size is 5. Never state a larger team or headcount.",Example persona,true
+G05,guard,guard,"Only numbers that appear in the claim facts may appear in CV bullets or messages.",Verifier rule,true
+G06,guard,guard,"Never extend tenures, change titles or shift dates beyond what the claim facts state.",Verifier rule,true

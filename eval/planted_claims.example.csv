@@ -1,0 +1,13 @@
+claim,cites,expected,why
+"Designed and ran 60+ A/B tests across onboarding, pricing and referral flows.",F09,supported,Stated in F09
+"Led a team of 5 analysts on Dicebox Carrom, reporting to the Head of Growth.",F06,supported,Stated in F06
+"Scaled Dicebox Carrom from launch to Rs 4L in daily revenue in eight months.",F05,supported,Stated in F05
+"Built the company's first cohort retention dashboard.",F10,supported,Stated in F10
+"Growth Analytics Manager at Dicebox Games, Jan 2025 to Aug 2026.",F04,supported,Stated in F04
+"Designed and ran 120+ A/B tests across onboarding, pricing and referral flows.",F09,unsupported,Inflated number
+"Led a team of 9 analysts on Dicebox Carrom.",F06,unsupported,Breaks G04 (team size is 5)
+"Owned the P&L for Dicebox Carrom.",F05,unsupported,Breaks G01
+"Proficient in Python for statistical modelling.",F12,unsupported,Breaks G02
+"Cut referral fraud by 40% with velocity rules.",F08,unsupported,Invented figure (G03)
+"Head of Growth Analytics at Dicebox Games.",F04,unsupported,Changed title (G06)
+"Scaled Dicebox Carrom to Rs 4L in daily revenue in four months.",F05,unsupported,Changed duration

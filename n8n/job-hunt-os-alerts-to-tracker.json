@@ -1,0 +1,429 @@
+{
+  "name": "Job Hunt OS - Alerts to tracker",
+  "nodes": [
+    {
+      "id": "n1",
+      "name": "New Job Alert Emails",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        200
+      ],
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        },
+        "simple": false,
+        "maxResults": 20,
+        "filters": {
+          "q": "label:job-alerts newer_than:2d",
+          "readStatus": "both"
+        },
+        "options": {}
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "name": "YOUR Gmail account"
+        }
+      }
+    },
+    {
+      "id": "n2",
+      "name": "Run with Sample Alerts",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        420
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "n3",
+      "name": "Sample Alert Emails",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        420
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Three SAMPLE alert emails (fictional companies, fake job IDs) so you can test without Gmail.\nconst SAMPLES = [\n  {\n    \"id\": \"sample-linkedin-1\",\n    \"from\": \"LinkedIn Job Alerts <jobalerts-noreply@linkedin.com>\",\n    \"subject\": \"SAMPLE: 3 new jobs for 'growth analytics manager'\",\n    \"date\": \"2026-10-30T07:02:00+05:30\",\n    \"text\": \"SAMPLE ALERT (fictional companies, fake job IDs)\\nYour job alert for growth analytics manager in India and UAE\\n3 new jobs match your preferences.\\n\\nGrowth Analytics Manager\\nTiffinly\\nBengaluru, Karnataka, India\\nView job: https://www.linkedin.com/comm/jobs/view/9000000001/?trackingId=sample\\n\\nSenior Data Engineer\\nPayNest\\nPune, Maharashtra, India\\nView job: https://www.linkedin.com/comm/jobs/view/9000000002/?trackingId=sample\\n\\nManager, Growth & Retention\\nSouk Express\\nDubai, United Arab Emirates\\nView job: https://www.linkedin.com/comm/jobs/view/9000000003/?trackingId=sample\\n\"\n  },\n  {\n    \"id\": \"sample-naukri-1\",\n    \"from\": \"Naukri Job Alerts <jobalerts@naukri.com>\",\n    \"subject\": \"SAMPLE: 4 new jobs matching your profile\",\n    \"date\": \"2026-10-30T08:15:00+05:30\",\n    \"text\": \"SAMPLE ALERT (fictional companies, fake job IDs)\\nJobs recommended for you\\n\\nAnalytics Manager\\nKirana Cloud\\n4-7 Yrs | Gurugram | Not disclosed\\nhttps://www.naukri.com/job-listings-analytics-manager-kirana-cloud-gurugram-4-to-7-years-301026900001\\n\\nArea Sales Manager\\nBrightBazaar Retail\\n3-6 Yrs | Jaipur | 6-9 Lacs PA\\nhttps://www.naukri.com/job-listings-area-sales-manager-brightbazaar-retail-jaipur-3-to-6-years-301026900002\\n\\nRevenue Manager\\nSaffron Stays Hotels\\n5-8 Yrs | Udaipur | Not disclosed\\nhttps://www.naukri.com/job-listings-revenue-manager-saffron-stays-hotels-udaipur-5-to-8-years-301026900003\\n\\nHead of Growth\\nQuickCart\\n10-15 Yrs | Mumbai | Not disclosed\\nhttps://www.naukri.com/job-listings-head-of-growth-quickcart-mumbai-10-to-15-years-301026900004\\n\"\n  },\n  {\n    \"id\": \"sample-iimjobs-1\",\n    \"from\": \"iimjobs <alerts@iimjobs.com>\",\n    \"subject\": \"SAMPLE: New jobs for you\",\n    \"date\": \"2026-10-30T09:40:00+05:30\",\n    \"text\": \"SAMPLE ALERT (fictional companies, fake job IDs)\\nNew jobs matching your alert\\n\\nManager - Growth Strategy - PayNest (4-6 yrs)\\nGurgaon/Gurugram\\nhttps://www.iimjobs.com/j/manager-growth-strategy-paynest-4-6-yrs-9000001\\n\\nLead - Product Analytics - Ludoverse Games (5-9 yrs)\\nBangalore\\nhttps://www.iimjobs.com/j/lead-product-analytics-ludoverse-games-5-9-yrs-9000002\\n\\nAssociate Director - Analytics - Streamly (9-13 yrs)\\nMumbai\\nhttps://www.iimjobs.com/j/associate-director-analytics-streamly-9-13-yrs-9000003\\n\\nGrowth Analytics Manager - Tiffinly (4-7 yrs)\\nBangalore\\nhttps://www.iimjobs.com/j/growth-analytics-manager-tiffinly-4-7-yrs-9000004\\n\\nManager - Monetisation - Streamly (4-8 yrs)\\nRemote\\nhttps://www.iimjobs.com/j/manager-monetisation-streamly-4-8-yrs-9000005\\n\"\n  }\n];\nreturn SAMPLES.map(function (e) { return { json: e }; });"
+      }
+    },
+    {
+      "id": "n4",
+      "name": "Parse Alert Emails",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// Turns each job-alert email (LinkedIn, Naukri, iimjobs) into one row per job. No AI calls.\nconst JOB_URL = /https?:\\/\\/(?:[a-z]{2,3}\\.)?(?:www\\.)?(linkedin\\.com\\/(?:comm\\/)?jobs\\/view\\/(\\d+)|naukri\\.com\\/job-listings-[^\\s\"'<>]*?(\\d{6,})|iimjobs\\.com\\/j\\/[^\\s\"'<>]*?(\\d{5,}))[^\\s\"'<>]*/gi;\n\nfunction htmlToText(html) {\n  return String(html || '')\n    .replace(/<a\\b[^>]*href=[\"']([^\"']+)[\"'][^>]*>([\\s\\S]*?)<\\/a>/gi, '$2\\n$1\\n')\n    .replace(/<(br|\\/p|\\/div|\\/tr|\\/li|\\/h\\d)[^>]*>/gi, '\\n')\n    .replace(/<[^>]+>/g, ' ')\n    .replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').replace(/&#39;/g, \"'\").replace(/&quot;/g, '\"')\n    .replace(/[ \\t]+/g, ' ');\n}\n\nfunction parseYears(s) {\n  const m = String(s || '').match(/(\\d{1,2})\\s*(?:-|–|to)\\s*(\\d{1,2})\\s*(?:yrs|years|yr)/i);\n  return m ? { min: Number(m[1]), max: Number(m[2]) } : { min: null, max: null };\n}\n\nfunction parseEmail(email) {\n  const text = email.text || htmlToText(email.html || '');\n  const lines = text.split('\\n').map(l => l.trim()).filter(Boolean);\n  const jobs = [];\n  let block = [];\n  for (const line of lines) {\n    JOB_URL.lastIndex = 0;\n    const m = JOB_URL.exec(line);\n    if (!m) { block.push(line); continue; }\n    const url = m[0];\n    const source = /linkedin/i.test(url) ? 'linkedin' : (/naukri/i.test(url) ? 'naukri' : 'iimjobs');\n    const id = m[2] || m[3] || m[4];\n    const b = block.filter(l => !/^(view job|apply|see all|sample alert)/i.test(l)).slice(-3);\n    block = [];\n    let title = '', company = '', location = '', years = { min: null, max: null };\n    if (source === 'linkedin') {\n      [title, company, location] = [b[0] || '', b[1] || '', b[2] || ''];\n    } else if (source === 'naukri') {\n      [title, company] = [b[0] || '', b[1] || ''];\n      const meta = (b[2] || '').split('|').map(x => x.trim());\n      years = parseYears(meta[0]);\n      location = meta[1] || '';\n    } else {\n      const head = b.length >= 2 ? b[b.length - 2] : (b[0] || '');\n      location = b.length >= 2 ? b[b.length - 1] : '';\n      years = parseYears(head);\n      const noYears = head.replace(/\\(\\s*\\d{1,2}\\s*-\\s*\\d{1,2}\\s*yrs?\\s*\\)/i, '').trim();\n      const parts = noYears.split(/\\s+-\\s+/);\n      company = parts.length > 1 ? parts.pop() : '';\n      title = parts.join(' - ');\n    }\n    const cleanUrl = source === 'linkedin' ? 'https://www.linkedin.com/jobs/view/' + id + '/' : url;\n    jobs.push({ job_key: source + ':' + id, source, title, company, location, years_min: years.min, years_max: years.max, link: cleanUrl, alert_date: email.date || '' });\n  }\n  return jobs;\n}\n\n\n// Works for both the Gmail Trigger (simple off: text/html/date fields) and the sample path.\nconst out = [];\nfor (const item of $input.all()) {\n  const e = item.json || {};\n  const email = { text: e.text || '', html: e.html || e.textAsHtml || '', date: e.date || '' };\n  for (const j of parseEmail(email)) out.push({ json: j });\n}\nreturn out;"
+      }
+    },
+    {
+      "id": "n5",
+      "name": "Filter by Preferences",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// EDIT THESE to match the roles you want. Free: no AI calls.\nconst CONFIG = {\n  \"years_min\": 4,\n  \"years_max\": 7,\n  \"title_level_regex\": \"\\\\b(manager|lead)\\\\b\",\n  \"title_function_regex\": \"\\\\b(growth|analytics|insights|experimentation|retention|monetis|monetiz|lifecycle|revenue|business intelligence|strategy|data)\",\n  \"title_exclude_regex\": \"\\\\b(engineer|engineering|software|developer|sales|account manager|account executive|talent|recruit|hr|finance manager|accounting|legal|director|vp|vice president|head of|intern)\\\\b\",\n  \"location_ok_regex\": \"\\\\b(india|bengaluru|bangalore|gurugram|gurgaon|delhi|noida|mumbai|pune|hyderabad|chennai|dubai|abu dhabi|united arab emirates|uae|remote)\\\\b\"\n};\n\nfunction judge(job, cfg) {\n  const t = (job.title || '').toLowerCase();\n  const loc = (job.location || '').toLowerCase();\n  if (!new RegExp(cfg.title_level_regex, 'i').test(t)) return 'skip: not manager or lead level';\n  if (!new RegExp(cfg.title_function_regex, 'i').test(t)) return 'skip: function not growth or analytics';\n  if (new RegExp(cfg.title_exclude_regex, 'i').test(t)) return 'skip: excluded title';\n  if (!new RegExp(cfg.location_ok_regex, 'i').test(loc)) return 'skip: location';\n  if (job.years_min != null && job.years_min > cfg.years_max) return 'skip: needs ' + job.years_min + '+ years';\n  if (job.years_max != null && job.years_max < cfg.years_min) return 'skip: too junior';\n  return 'shortlist';\n}\n\n\nconst today = new Date().toISOString().slice(0, 10);\nreturn $input.all().map(function (item) {\n  const j = item.json;\n  return { json: Object.assign({}, j, { first_seen: today, filter_result: judge(j, CONFIG), decision: '', fit_score: '', cv_link: '', status: 'new', applied_on: '', notes: '' }) };\n});"
+      }
+    },
+    {
+      "id": "n6",
+      "name": "Read Tracker",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        880,
+        300
+      ],
+      "executeOnce": true,
+      "alwaysOutputData": true,
+      "parameters": {
+        "resource": "sheet",
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "",
+          "cachedResultName": "Job Hunt OS tracker"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Tracker"
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "name": "YOUR Google Sheets account"
+        }
+      }
+    },
+    {
+      "id": "n7",
+      "name": "Drop Already Seen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "function norm(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }\nfunction matchKey(job) { return norm(job.company) + '|' + norm(job.title); }\n\nfunction dedupe(jobs, existingRows) {\n  const seen = new Set();\n  (existingRows || []).forEach(r => { seen.add(r.job_key); seen.add(matchKey(r)); });\n  const out = [];\n  for (const j of jobs) {\n    if (seen.has(j.job_key) || seen.has(matchKey(j))) continue;\n    seen.add(j.job_key); seen.add(matchKey(j));\n    out.push(j);\n  }\n  return out;\n}\n\n\n// Drop anything already in the tracker (same job ID, or same company + title from another board).\nconst existing = $('Read Tracker').all().map(function (i) { return i.json; }).filter(function (r) { return r && r.job_key; });\nconst fresh = dedupe($('Filter by Preferences').all().map(function (i) { return i.json; }), existing);\nreturn fresh.map(function (j) { return { json: j }; });"
+      }
+    },
+    {
+      "id": "n8",
+      "name": "Add to Tracker",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1320,
+        300
+      ],
+      "parameters": {
+        "resource": "sheet",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "",
+          "cachedResultName": "Job Hunt OS tracker"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Tracker"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "schema": [
+            {
+              "id": "job_key",
+              "displayName": "job_key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company",
+              "displayName": "company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "years_min",
+              "displayName": "years_min",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "years_max",
+              "displayName": "years_max",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "link",
+              "displayName": "link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "alert_date",
+              "displayName": "alert_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "first_seen",
+              "displayName": "first_seen",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "filter_result",
+              "displayName": "filter_result",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "decision",
+              "displayName": "decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fit_score",
+              "displayName": "fit_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "cv_link",
+              "displayName": "cv_link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "applied_on",
+              "displayName": "applied_on",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "notes",
+              "displayName": "notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {
+          "handlingExtraData": "ignoreIt"
+        }
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "name": "YOUR Google Sheets account"
+        }
+      }
+    },
+    {
+      "id": "n9",
+      "name": "Read me",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -60
+      ],
+      "parameters": {
+        "width": 620,
+        "height": 220,
+        "content": "## Job Hunt OS: alerts to tracker\nNo AI calls. Reads your job-alert emails, keeps roles that match CONFIG in **Filter by Preferences**, drops duplicates and appends them to a Google Sheet.\n\n1. Gmail: create a filter that labels LinkedIn, Naukri and iimjobs alert emails `job-alerts`.\n2. Connect Gmail and Google Sheets, pick your sheet in both Sheets nodes.\n3. Click **Run with Sample Alerts** first to test."
+      }
+    }
+  ],
+  "connections": {
+    "New Job Alert Emails": {
+      "main": [
+        [
+          {
+            "node": "Parse Alert Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run with Sample Alerts": {
+      "main": [
+        [
+          {
+            "node": "Sample Alert Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sample Alert Emails": {
+      "main": [
+        [
+          {
+            "node": "Parse Alert Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Alert Emails": {
+      "main": [
+        [
+          {
+            "node": "Filter by Preferences",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter by Preferences": {
+      "main": [
+        [
+          {
+            "node": "Read Tracker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Tracker": {
+      "main": [
+        [
+          {
+            "node": "Drop Already Seen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Drop Already Seen": {
+      "main": [
+        [
+          {
+            "node": "Add to Tracker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
